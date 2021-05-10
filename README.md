@@ -301,17 +301,20 @@ git config --global user.email user@email.domain
 After that you can clone the superbuild repository as any other git repository, i.e. if you use terminal you can write:
 ~~~
 git clone https://github.com/robotology/robotology-superbuild
+cd robotology-superbuild
+mkdir build
 ~~~
 or you can use your preferred Git GUI. 
 
 Once you cloned the repository, you can generate the Visual Studio solution using the CMake GUI.
-See the nicely written [CGold documentation](http://cgold.readthedocs.io/en/latest/first-step/generate-native-tool/gui-visual-studio.html) if you do not know how to generate a Visual Studio solution from a CMake project.
+See the nicely written [CGold documentation](http://cgold.readthedocs.io/en/latest/first-step/generate-native-tool/gui-visual-studio.html) if you do not know how to generate a Visual Studio solution from a CMake project. Notice that you should select `Specify toolchain file for cross-compiling` in the CMake GUI in order to specify the toolchain file as `C:/robotology/vcpkg/scripts/buildsystems/vcpkg.cmake`. 
 
 You can then open the generated solution with Visual Studio and build the target `all`.
 Visual Studio will then download, build and install in a local directory all the robotology software and its dependencies.
 If you prefer to work from the command line, you can also compile the `all` target using the following command (if you are in the `robotology-superbuild/build` directory, and the directory of the `cmake.exe` exectuable is in the [PATH](https://en.wikipedia.org/wiki/PATH_(variable)) :
 ~~~
-cmake --build . --config Release
+cd build
+cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=C:/robotology/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 ~~~
 
 ### Configure your environment
