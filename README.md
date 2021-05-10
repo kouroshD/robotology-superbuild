@@ -254,14 +254,17 @@ If you want to enable a [profile](doc/profiles.md#profile-cmake-options) or a [d
 * [`ROBOTOLOGY_USES_ESDCAN`](doc/profiles.md#shoes)
 
 ### Superbuild
-Once you cloned the repository, you can generate the Visual Studio solution using the CMake GUI, by using as a generator the appropriate Visual Studio version, and the 64 bit as platform, and specifying the [vcpkg CMake toolchain](https://github.com/Microsoft/vcpkg/blob/master/docs/users/integration.md#cmake-toolchain-file-recommended-for-open-source-cmake-projects) as discussed in the previous section. In particular, see the nicely written [CGold documentation](http://cgold.readthedocs.io/en/latest/first-step/generate-native-tool/gui-visual-studio.html) if you do not know how to generate a Visual Studio solution from a CMake project.
+Once you cloned the repository, you can generate the Visual Studio solution using the CMake GUI, by using as a generator the appropriate Visual Studio version, and the 64 bit as platform, and specifying the [vcpkg CMake toolchain](https://github.com/Microsoft/vcpkg/blob/master/docs/users/integration.md#cmake-toolchain-file-recommended-for-open-source-cmake-projects) as discussed in the previous section. Notice that you should select `Specify toolchain file for cross-compiling` in the CMake GUI in order to specify the toolchain file as `C:/robotology/vcpkg/scripts/buildsystems/vcpkg.cmake`. In particular, see the nicely written [CGold documentation](http://cgold.readthedocs.io/en/latest/first-step/generate-native-tool/gui-visual-studio.html) if you do not know how to generate a Visual Studio solution from a CMake project.
 
 You can then open the generated solution with Visual Studio and build the target `all`.
 
 Visual Studio will then download, build and install in a local directory all the robotology software and its dependencies.
 If you prefer to work from the command line, you can also compile the `all` target using the following command (if you are in the `robotology-superbuild/build` directory, and the directory of the `cmake.exe` exectuable is in the [PATH](https://en.wikipedia.org/wiki/PATH_(variable)) :
 ~~~
-cmake --build . --config Release
+cd robotology-superbuild
+mkdir build
+cd build
+cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=C:/robotology/vcpkg/scripts/buildsystems/vcpkg.cmake ..
 ~~~
 
 ### Configure your environment
